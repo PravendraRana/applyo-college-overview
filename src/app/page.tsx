@@ -1,103 +1,193 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState } from "react"
+import { ChevronRight, Share, Bookmark } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+
+import { Navbar } from "@/components/navbar"
+import { MobileMenu } from "@/components/mobile-menu"
+import { StickyTopBarMobile } from "@/components/sticky-top-bar-mobile"
+import { StickyInfoBox } from "@/components/sticky-info-box"
+import { KeepMeNotifiedButton } from "@/components/keep-me-notified-button"
+import { MediaGallery } from "@/components/media-gallery"
+import { NewsFeed } from "@/components/news-feed"
+import { FAQAccordion } from "@/components/faq-accordion"
+import { Footer } from "@/components/footer"
+
+export default function CollegeOverview() {
+  const [isNotified, setIsNotified] = useState(false)
+  const [activeTab, setActiveTab] = useState("Overview")
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const tabs = ["Overview", "Programs", "Placements", "Fees & Financial Aid", "Admissions", "Campus & More"]
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-white">
+      <Navbar onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+
+      {/* Breadcrumb */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center text-sm text-gray-500">
+          <a href="#" className="hover:text-gray-700">
+            Home
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+          <ChevronRight className="w-4 h-4 mx-2" />
+          <a href="#" className="hover:text-gray-700">
+            Colleges
           </a>
+          <ChevronRight className="w-4 h-4 mx-2" />
+          <span className="text-gray-900">S.P. Jain Institute of Management & Research</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* <StickyTopBarMobile
+        isNotified={isNotified}
+        onNotifyToggle={() => setIsNotified(!isNotified)}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        tabs={tabs}
+      /> */}
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+          <StickyInfoBox />
+
+          {/* Main Content Area */}
+          <div className="lg:col-span-9">
+            {/* College Header */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                    S.P. Jain Institute of Management & Research
+                  </h1>
+                  <p className="text-gray-600">Est. 1981 • Mumbai, Maharashtra</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm">
+                    <Share className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    <Bookmark className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 mb-6">
+                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                  <span>15+ Programs offered</span>
+                  <span>•</span>
+                  <span>Private Institute</span>
+                  <span>•</span>
+                  <span>45 Acres</span>
+                  <span>•</span>
+                  <Badge variant="outline">AACSB</Badge>
+                  <Badge variant="outline">AMBA</Badge>
+                  <Badge variant="outline">NAAC</Badge>
+                  <span>+3 more</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center space-x-3 mb-6">
+                <Button className="hidden md:block bg-blue-600 text-white">Continue Application</Button>
+                <KeepMeNotifiedButton isNotified={isNotified} onToggle={() => setIsNotified(!isNotified)} />
+              </div>
+            </div>
+
+            <MediaGallery />
+            <StickyTopBarMobile
+              isNotified={isNotified}
+              onNotifyToggle={() => setIsNotified(!isNotified)}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              tabs={tabs}
+            />
+
+            {/* Desktop Navigation Tabs */}
+            <div className="hidden md:block mb-8">
+              <div className="border-b border-gray-200">
+                <nav className="flex space-x-8">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === tab
+                          ? "border-blue-500 text-blue-600"
+                          : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                        }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Description</h2>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                SP Jain Institute of Management and Research, founded in 1981, is a premier B-school situated on a
+                sprawling <strong>45-acre campus</strong> in Andheri (Mumbai). Renowned for its rigorous PGDM & PGPM
+                programs, SPJIMR delivers excellent career outcomes, boasting an impressive{" "}
+                <strong>average placement of ₹22.9 LPA</strong>. Students enjoy vibrant campus life, modern hostels,
+                extensive...
+              </p>
+              <Button variant="link" className="p-0 text-gray-500">
+                Show more
+              </Button>
+            </div>
+
+            {/* Tags */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Hostel Available</Badge>
+                <Badge variant="secondary">Private</Badge>
+                <Badge variant="secondary">Marketing</Badge>
+                <Badge variant="secondary">Finance</Badge>
+                <Badge variant="secondary">Entrepreneurship</Badge>
+                <Badge variant="secondary">+3 more</Badge>
+              </div>
+            </div>
+
+            {/* Accreditations */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Accreditations</h3>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline">AACSB</Badge>
+                <Badge variant="outline">AMBA</Badge>
+                <Badge variant="outline">NAAC</Badge>
+                <Badge variant="outline">+3 more</Badge>
+              </div>
+            </div>
+
+            <NewsFeed />
+
+            <FAQAccordion />
+
+            {/* Download Brochure */}
+            <div className="mb-8">
+              <Card className="bg-gray-50">
+                <CardContent className="p-6 flex items-center justify-between">
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    All you need to know about the college—just one click away!
+                  </h4>
+                  <Button variant="outline">Download Brochure</Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
     </div>
-  );
+  )
 }
