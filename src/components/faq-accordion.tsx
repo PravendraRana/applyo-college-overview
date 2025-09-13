@@ -22,7 +22,7 @@ export function FAQAccordion() {
       <div className="mt-6 px-2 bg-blue-50 flex items-center justify-between">
         <div className="mb-4">
           <h4 className="font-medium text-blue-600 mb-2">Still have questions?</h4>
-          <p className="text-sm text-gray-600">Can't find what you're looking for? Let us help you.</p>
+          <p className="text-sm text-gray-600">Can&apos;t find what you&apos;re looking for? Let us help you.</p>
         </div>
         <Button className="bg-blue-600 text-white">Get in touch</Button>
       </div>
