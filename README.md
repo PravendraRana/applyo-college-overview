@@ -41,3 +41,7 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Deployment
+
+This project is deployed on Vercel 🚀
+
+Live Demo: (https://applyo-college-overview.vercel.app/)
